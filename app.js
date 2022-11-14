@@ -97,19 +97,29 @@ app.route("/questions")
 })
 .post(function(req, res){
 
-  //Find all posts in database and pass to view to display
-  Question.find({}, function(err, foundQuestions){
+  //Create question document to save to database
+  let questionToAdd = new Question({
+
+    level: req.body.level,
+    category: req.body.category,
+    question: req.body.question,
+    choices: req.body.choices,
+    answer: req.body.answer
+  });
+
+  //saves questionToAdd into Questions collection in db
+  questionToAdd.save( function(err){
 
     if( err ){
 
-      console.log(err);
       res.send(err);
     }
     else{
 
-      res.send(foundQuestions);
+      res.send("Added new question.");
     }
   });
+
 })
 .delete(function(req, res){
 
@@ -121,7 +131,7 @@ app.route("/questions")
     }
     else{
 
-      res.send("Deleted.");
+      res.send("Deleted all questions.");
     }
   })
 });
