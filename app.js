@@ -143,26 +143,6 @@ app.route("/questions")
        res.send(foundQuestion);
    });
  })
- .put(function(req, res){
-
-   Question.update(
-     {_id:req.params.questionId},
-     {
-       level: req.body.level,
-       category: req.body.category,
-       question: req.body.question,
-       choices: req.body.choices,
-       answer: req.body.answer
-     },
-     {overwrite : true},
-     function(err){
-
-      if( err )
-        res.send(err);
-      else
-        res.send("Updated.");
-     });
- })
  .patch(function(req, res){
 
    Question.update(
