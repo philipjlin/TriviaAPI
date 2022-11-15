@@ -77,22 +77,20 @@ app.listen(process.env.PORT || "3000", function(req, res){
 
 
 
-
+/*
+ * REST routes for all questions
+ *
+ */
 app.route("/questions")
 .get(function(req, res){
 
   //Find all posts in database and pass to view to display
   Question.find({}, function(err, foundQuestions){
 
-    if( err ){
-
-      console.log(err);
+    if( err )
       res.send(err);
-    }
-    else{
-
+    else
       res.send(foundQuestions);
-    }
   });
 })
 .post(function(req, res){
@@ -110,40 +108,97 @@ app.route("/questions")
   //saves questionToAdd into Questions collection in db
   questionToAdd.save( function(err){
 
-    if( err ){
-
+    if( err )
       res.send(err);
-    }
-    else{
-
+    else
       res.send("Added new question.");
-    }
   });
-
 })
 .delete(function(req, res){
 
   Question.deleteMany(function(err){
 
-    if( err ){
-
+    if( err )
       res.send(err);
-    }
-    else{
-
+    else
       res.send("Deleted all questions.");
-    }
   })
 });
 
+
+
 /*
- * GET routes
+ * REST routes for individual questions
  *
  */
- //Get random question
- app.get("/question", function(req, res){
+ app.route("/questions/:questionId")
+ .get(function(req, res){
 
-   let level = "Blue";
+   //Find post in database and pass to view to display
+   Question.findOne({_id:req.params.questionId}, function(err, foundQuestion){
+
+     if( err || foundQuestion == null )
+       res.send("Question not found.");
+     else
+       res.send(foundQuestion);
+   });
+ })
+ .put(function(req, res){
+
+   Question.update(
+     {_id:req.params.questionId},
+     {
+       level: req.body.level,
+       category: req.body.category,
+       question: req.body.question,
+       choices: req.body.choices,
+       answer: req.body.answer
+     },
+     {overwrite : true},
+     function(err){
+
+      if( err )
+        res.send(err);
+      else
+        res.send("Updated.");
+     });
+ })
+ .patch(function(req, res){
+
+   Question.update(
+
+     {_id:req.params.questionId},
+     { $set : req.body },
+     function(err){
+
+      if( err )
+        res.send(err);
+      else
+        res.send("Updated.");
+
+     });
+ })
+ .delete(function(req, res){
+
+   Question.deleteOne(
+
+    {_id:req.params.questionId},
+    function(err){
+
+       if( err )
+         res.send(err);
+       else
+         res.send("Deleted question.");
+    });
+ });
+
+
+
+
+ //Get random question of a specified level
+ app.get("/questions/:questionLevel", function(req, res){
+
+   let level = req.params.questionLevel; //Blue, Green, Yellow, Red, Purple
 
    //Gets random question of selected level
    Question.aggregate([{ $match:{ level: level } }, { $sample:{ size: 1 } }], function(err, foundQuestion){
