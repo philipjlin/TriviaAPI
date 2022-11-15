@@ -184,7 +184,7 @@ app.route("/questions")
 
 
  //Get random question of a specified level
- app.get("/questions/:questionLevel", function(req, res){
+ app.get("/randomQuestion/:questionLevel", function(req, res){
 
    let level = req.params.questionLevel; //Blue, Green, Yellow, Red, Purple
 
