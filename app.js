@@ -77,6 +77,14 @@ app.listen(process.env.PORT || "3000", function(req, res){
 
 
 
+
+app.get("/", function(req, res){
+
+  res.sendFile(path.join(__dirname, "views/index.html"));
+});
+
+
+
 /*
  * REST routes for all questions
  *
