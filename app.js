@@ -71,7 +71,7 @@ let sampleQuestion = new Question({
  */
 app.listen(process.env.PORT || "3000", function(req, res){
 
-  console.log("Listening on web server or localhost:3000)");
+  console.log("Listening on web server or localhost:3000");
 });
 
 
