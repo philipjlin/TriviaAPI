@@ -6,7 +6,7 @@ require('dotenv').config();
 
 const cors = require('cors');
 app.use(cors({
-    origin: "https://www.section.io"
+    origin: "https://localhost:3000"
 }));
 
 //Required packages
