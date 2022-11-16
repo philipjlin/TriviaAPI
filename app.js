@@ -4,10 +4,6 @@
 //Env variables
 require('dotenv').config();
 
-const cors = require('cors');
-app.use(cors({
-    origin: "https://localhost:3000"
-}));
 
 //Required packages
 const path = require("path");
@@ -16,6 +12,12 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const app = express();
+
+const cors = require('cors');
+app.use(cors({
+    origin: "https://localhost:3000"
+}));
+
 
 //Body parser for requests
 app.use(bodyParser.urlencoded({extended: true}));
