@@ -14,7 +14,7 @@ const mongoose = require("mongoose");
 const app = express();
 
 const cors = require('cors');
-app.use(cors());
+app.use(cors({origin: ["http://localhost:3000", "https://triviaapi.onrender.com"]}));
 
 
 //Body parser for requests
