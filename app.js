@@ -205,20 +205,3 @@ app.route("/questions")
    });
 
  });
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
- * POST routes
- *
- */
