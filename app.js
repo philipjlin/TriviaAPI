@@ -4,6 +4,11 @@
 //Env variables
 require('dotenv').config();
 
+const cors = require('cors');
+app.use(cors({
+    origin: "https://www.section.io"
+}));
+
 //Required packages
 const path = require("path");
 const express = require("express");
@@ -11,9 +16,6 @@ const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
 
 const app = express();
-
-//App uses ejs to render views in views folder
-//app.set("view engine", "ejs");
 
 //Body parser for requests
 app.use(bodyParser.urlencoded({extended: true}));
