@@ -13,6 +13,9 @@ const mongoose = require("mongoose");
 
 const app = express();
 
+/*
+ * CORS is a HTTP request protocol that allows API access using fetch method
+ */
 const cors = require('cors');
 app.use(cors({origin: ["http://localhost:3000", "https://triviaapi.onrender.com", "https://triviagame.onrender.com"]}));
 
@@ -155,7 +158,7 @@ app.route("/questions")
  })
  .patch(function(req, res){
 
-   Question.update(
+   Question.updateOne(
 
      {_id:req.params.questionId},
      { $set : req.body },
